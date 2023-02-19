@@ -20,7 +20,7 @@ public class SecurityServices : ISecurityServices
         return Task.FromResult(Response.Ok<string>(passwordHash));
     }
 
-    public Task<Response<bool>> VerifyPassword(string password, PetParentDto petParent)
+    public Task<Response<bool>> VerifyPassword(string password, User petParent)
     {
         bool validPassword = BCrypt.Net.BCrypt.Verify(password, petParent.Password);
 

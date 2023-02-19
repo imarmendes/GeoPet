@@ -9,47 +9,47 @@ using GeoPet.Validation.Base;
 
 namespace GeoPet.Service;
 
-public class PetParentService : IPetParentService
+public class PetParentService : IUserService
 {
-    private readonly IPetParentRepository _petParentRepository;
+    private readonly IUserRepository _petParentRepository;
     private readonly IMapper _mapper;
     private readonly ISecurityServices _securityServices;
 
-    public PetParentService(IPetParentRepository petParentRepository, IMapper mapper, ISecurityServices securityServices)
+    public PetParentService(IUserRepository petParentRepository, IMapper mapper, ISecurityServices securityServices)
     {
         _petParentRepository = petParentRepository;
         _mapper = mapper;
         _securityServices = securityServices;
     }
 
-    public async Task<Response> CreatePetParent(PetParentRequest petParentRequest)
+    public async Task<Response> CreateUser(UserRequest petParentRequest)
     {
         try
         {
             var petParentValidation = new PetParentValidate();
             var petIsValid = petParentValidation.Validate(petParentRequest);
-            
+
             var errors = GetValidations.GetErrors(petIsValid);
-            
+
             if (errors.Report.Any())
                 return errors;
-            
-            var isEquals = await _securityServices.ComparePassword(petParentRequest.Password, petParentRequest.ConfirmPassword);
 
-            if (!isEquals.Data)
-                return Response.Unprocessable(Report.Create("Os password não são iguais."));
+            // var isEquals = await _securityServices.ComparePassword(petParentRequest.Password, petParentRequest.ConfirmPassword);
+
+            // if (!isEquals.Data)
+            //     return Response.Unprocessable(Report.Create("Os password não são iguais."));
 
             var passwordEncripted = await _securityServices.EncryptPassword(petParentRequest.Password);
 
             petParentRequest.Password = passwordEncripted.Data;
 
-            var petParent = _mapper.Map<PetParentDto>(petParentRequest);
+            var petParent = _mapper.Map<User>(petParentRequest);
 
             var petParentAdd = _petParentRepository.Add(petParent);
-            
-            var petParentResponse = _mapper.Map<PetParentResponse>(petParentAdd.Result);
 
-            var response = new Response<PetParentResponse>(petParentResponse);
+            var petParentResponse = _mapper.Map<UserResponse>(petParentAdd.Result);
+
+            var response = new Response<UserResponse>(petParentResponse);
             return response;
         }
         catch (Exception e)
@@ -58,13 +58,13 @@ public class PetParentService : IPetParentService
         }
     }
 
-    public async Task<Response> GetAllPetParents()
+    public async Task<Response> GetAllUsers()
     {
         try
         {
             var petParents = await _petParentRepository.GetAll();
-            var petParentResponseList = _mapper.Map<List<PetParentDto>, List<PetParentResponse>>(petParents);
-            var response = new Response<List<PetParentResponse>>(petParentResponseList);
+            var petParentResponseList = _mapper.Map<List<User>, List<UserResponse>>(petParents);
+            var response = new Response<List<UserResponse>>(petParentResponseList);
             return response;
         }
         catch (Exception e)
@@ -73,13 +73,13 @@ public class PetParentService : IPetParentService
         }
     }
 
-    public async Task<Response> GetPetParentById(int id)
+    public async Task<Response> GetUserById(int id)
     {
         try
         {
             var petParent = await _petParentRepository.GetById(id);
-            var petParentResponse = _mapper.Map<PetParentResponse>(petParent);
-            var response = new Response<PetParentResponse>(petParentResponse);
+            var petParentResponse = _mapper.Map<UserResponse>(petParent);
+            var response = new Response<UserResponse>(petParentResponse);
             return response;
         }
         catch (Exception e)
@@ -88,25 +88,25 @@ public class PetParentService : IPetParentService
         }
     }
 
-    public async Task<Response> UpdatePetParent(int id, PetParentRequest petParentRequest)
+    public async Task<Response> UpdateUser(int id, UserRequest petParentRequest)
     {
         try
         {
             var petParentValidation = new PetParentValidate();
             var petIsValid = petParentValidation.Validate(petParentRequest);
-            
+
             var errors = GetValidations.GetErrors(petIsValid);
-            
+
             if (errors.Report.Any())
                 return errors;
-            
-            var petParent = _mapper.Map<PetParentDto>(petParentRequest);
+
+            var petParent = _mapper.Map<User>(petParentRequest);
 
             var petParentUpdated = _petParentRepository.Update(petParent);
-            
-            var petParentResponse = _mapper.Map<PetParentResponse>(petParentUpdated.Result);
 
-            var response = new Response<PetParentResponse>(petParentResponse);
+            var petParentResponse = _mapper.Map<UserResponse>(petParentUpdated.Result);
+
+            var response = new Response<UserResponse>(petParentResponse);
             return response;
         }
         catch (Exception e)
@@ -115,16 +115,16 @@ public class PetParentService : IPetParentService
         }
     }
 
-    public async Task<Response> DeletePetParent(int id)
+    public async Task<Response> DeleteUser(int id)
     {
         try
         {
             var petParentToDelete = _petParentRepository.GetById(id);
-            
-            var petParentDeleted = await _petParentRepository.Remove(petParentToDelete.Result);
-            var petParentResponse = _mapper.Map<PetParentResponse>(petParentDeleted);
 
-            var response = new Response<PetParentResponse>(petParentResponse);
+            var petParentDeleted = await _petParentRepository.Remove(petParentToDelete.Result);
+            var petParentResponse = _mapper.Map<UserResponse>(petParentDeleted);
+
+            var response = new Response<UserResponse>(petParentResponse);
             return response;
         }
         catch (Exception e)

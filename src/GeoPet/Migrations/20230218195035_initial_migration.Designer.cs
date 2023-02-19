@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GeoPet.Migrations
 {
     [DbContext(typeof(GeoPetContext))]
-    [Migration("20230218132459_inicial")]
-    partial class inicial
+    [Migration("20230218195035_initial_migration")]
+    partial class initial_migration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,18 +25,16 @@ namespace GeoPet.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("GeoPet.DataContract.Model.PetDto", b =>
+            modelBuilder.Entity("GeoPet.DataContract.Model.Pet", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("PetId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<string>("DogBreed")
+                    b.Property<string>("Breed")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -44,30 +42,35 @@ namespace GeoPet.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PetPerantId")
+                    b.Property<string>("Size")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("PetId");
 
-                    b.HasIndex("PetPerantId");
+                    b.HasIndex("UserId");
 
-                    b.ToTable("PetDtos");
+                    b.ToTable("Pet");
                 });
 
-            modelBuilder.Entity("GeoPet.DataContract.Model.PetParentDto", b =>
+            modelBuilder.Entity("GeoPet.DataContract.Model.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("CEP")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -77,28 +80,28 @@ namespace GeoPet.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                    b.HasKey("UserId");
 
-                    b.HasKey("Id");
+                    b.HasIndex("Email")
+                        .IsUnique();
 
-                    b.ToTable("PetParentDtos");
+                    b.ToTable("User");
                 });
 
-            modelBuilder.Entity("GeoPet.DataContract.Model.PetDto", b =>
+            modelBuilder.Entity("GeoPet.DataContract.Model.Pet", b =>
                 {
-                    b.HasOne("GeoPet.DataContract.Model.PetParentDto", "PetPerant")
-                        .WithMany("PetDtos")
-                        .HasForeignKey("PetPerantId")
+                    b.HasOne("GeoPet.DataContract.Model.User", "User")
+                        .WithMany("Pets")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("PetPerant");
+                    b.Navigation("User");
                 });
 
-            modelBuilder.Entity("GeoPet.DataContract.Model.PetParentDto", b =>
+            modelBuilder.Entity("GeoPet.DataContract.Model.User", b =>
                 {
-                    b.Navigation("PetDtos");
+                    b.Navigation("Pets");
                 });
 #pragma warning restore 612, 618
         }

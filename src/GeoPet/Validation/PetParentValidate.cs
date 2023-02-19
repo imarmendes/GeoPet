@@ -3,7 +3,7 @@ using GeoPet.DataContract.Request;
 
 namespace GeoPet.Validation;
 
-public class PetParentValidate  : AbstractValidator<PetParentRequest>
+public class PetParentValidate : AbstractValidator<UserRequest>
 {
     public PetParentValidate()
     {
@@ -24,12 +24,12 @@ public class PetParentValidate  : AbstractValidator<PetParentRequest>
             .WithMessage("O senha é obrigatório.")
             .MinimumLength(6)
             .WithMessage("A senha deve ter no mínimo 6 caracteres.");
-        
-        RuleFor(p => p.ConfirmPassword)
-            .NotEmpty()
-            .WithMessage("O senha é obrigatório.")
-            .MinimumLength(6)
-            .WithMessage("A senha deve ter no mínimo 6 caracteres.");
-        
+
+        // RuleFor(p => p.ConfirmPassword)
+        //     .NotEmpty()
+        //     .WithMessage("O senha é obrigatório.")
+        //     .MinimumLength(6)
+        //     .WithMessage("A senha deve ter no mínimo 6 caracteres.");
+
     }
 }

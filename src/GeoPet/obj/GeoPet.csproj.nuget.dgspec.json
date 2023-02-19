@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/imarmendes/Documentos/Trybe/ACC_C#/Bloco_13/GeoPet/src/GeoPet/GeoPet.csproj": {}
+    "/home/leo/Dev/C#/GeoPet/GeoPet/src/GeoPet/GeoPet.csproj": {}
   },
   "projects": {
-    "/home/imarmendes/Documentos/Trybe/ACC_C#/Bloco_13/GeoPet/src/GeoPet/GeoPet.csproj": {
+    "/home/leo/Dev/C#/GeoPet/GeoPet/src/GeoPet/GeoPet.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/imarmendes/Documentos/Trybe/ACC_C#/Bloco_13/GeoPet/src/GeoPet/GeoPet.csproj",
+        "projectUniqueName": "/home/leo/Dev/C#/GeoPet/GeoPet/src/GeoPet/GeoPet.csproj",
         "projectName": "GeoPet",
-        "projectPath": "/home/imarmendes/Documentos/Trybe/ACC_C#/Bloco_13/GeoPet/src/GeoPet/GeoPet.csproj",
-        "packagesPath": "/home/imarmendes/.nuget/packages/",
-        "outputPath": "/home/imarmendes/Documentos/Trybe/ACC_C#/Bloco_13/GeoPet/src/GeoPet/obj/",
+        "projectPath": "/home/leo/Dev/C#/GeoPet/GeoPet/src/GeoPet/GeoPet.csproj",
+        "packagesPath": "/home/leo/.nuget/packages/",
+        "outputPath": "/home/leo/Dev/C#/GeoPet/GeoPet/src/GeoPet/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/imarmendes/.nuget/NuGet/NuGet.Config"
+          "/home/leo/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"

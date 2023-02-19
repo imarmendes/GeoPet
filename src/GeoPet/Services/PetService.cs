@@ -13,7 +13,7 @@ public class PetService : IPetService
 {
     private readonly IPetRepository _petRepository;
     private readonly IMapper _mapper;
-    
+
     public PetService(IPetRepository petRepository, IMapper mapper)
     {
         _petRepository = petRepository;
@@ -25,16 +25,16 @@ public class PetService : IPetService
         {
             var petValidation = new PetValidate();
             var petIsValid = petValidation.Validate(petRequest);
-            
+
             var errors = GetValidations.GetErrors(petIsValid);
-            
+
             if (errors.Report.Any())
                 return errors;
-            var pet = _mapper.Map<PetDto>(petRequest);
-            
-            var petAdd = _petRepository.Add(pet);
-            
-            var petResponse = _mapper.Map<PetResponse>(petAdd.Result);
+            var pet = _mapper.Map<Pet>(petRequest);
+
+            var petAdd = await _petRepository.Add(pet);
+
+            var petResponse = _mapper.Map<PetResponse>(petAdd);
 
             var response = new Response<PetResponse>(petResponse);
             return response;
@@ -50,7 +50,7 @@ public class PetService : IPetService
         try
         {
             var pets = await _petRepository.GetAll();
-            var petResponseList = _mapper.Map<List<PetDto>, List<PetResponse>>(pets);
+            var petResponseList = _mapper.Map<List<Pet>, List<PetResponse>>(pets);
             var response = new Response<List<PetResponse>>(petResponseList);
             return response;
         }
@@ -81,16 +81,16 @@ public class PetService : IPetService
         {
             var petValidation = new PetValidate();
             var petIsValid = petValidation.Validate(petRequest);
-            
+
             var errors = GetValidations.GetErrors(petIsValid);
-            
+
             if (errors.Report.Any())
                 return errors;
-            
-            var pet = _mapper.Map<PetDto>(petRequest);
+
+            var pet = _mapper.Map<Pet>(petRequest);
 
             var petUpdated = _petRepository.Update(pet);
-            
+
             var petResponse = _mapper.Map<PetResponse>(petUpdated.Result);
 
             var response = new Response<PetResponse>(petResponse);
@@ -107,7 +107,7 @@ public class PetService : IPetService
         try
         {
             var petToDelete = _petRepository.GetById(id);
-            
+
             var petDeleted = await _petRepository.Remove(petToDelete.Result);
             var petResponse = _mapper.Map<PetResponse>(petDeleted);
 

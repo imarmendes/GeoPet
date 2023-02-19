@@ -3,7 +3,7 @@ using GeoPet.Interfaces.Repository;
 
 namespace GeoPet.Repository;
 
-public class PetRepository :  RepositoryBase<PetDto>, IPetRepository
+public class PetRepository : RepositoryBase<Pet>, IPetRepository
 {
     private readonly GeoPetContext _context;
 

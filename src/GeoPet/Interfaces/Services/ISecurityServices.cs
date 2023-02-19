@@ -7,5 +7,5 @@ public interface ISecurityServices
 {
     public Task<Response<bool>> ComparePassword(string password, string confirmPassword);
     public Task<Response<string>> EncryptPassword(string password);
-    public Task<Response<bool>> VerifyPassword(string password, PetParentDto petParent);
+    public Task<Response<bool>> VerifyPassword(string password, User petParent);
 }

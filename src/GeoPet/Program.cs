@@ -11,14 +11,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.AddDbContext<GeoPetContext>(options => {
+builder.Services.AddDbContext<GeoPetContext>(options =>
+{
     options.UseSqlServer(builder.Configuration.GetConnectionString("sqlserver"));
 });
 
 // builder.Services.AddScoped<IRepositoryBase<>, RepositoryBase<>>();
-builder.Services.AddScoped<IPetParentRepository, PetParentRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IPetRepository, PetRepository>();
-builder.Services.AddScoped<IPetParentService, PetParentService>();
+builder.Services.AddScoped<IUserService, PetParentService>();
 builder.Services.AddScoped<IPetService, PetService>();
 builder.Services.AddScoped<ISecurityServices, SecurityServices>();
 

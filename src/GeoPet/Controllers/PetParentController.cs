@@ -6,47 +6,47 @@ namespace GeoPet.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class PetParentController  : ControllerBase
+public class PetParentController : ControllerBase
 {
-    private readonly IPetParentService _petParentService;
+    private readonly IUserService _petParentService;
 
-    public PetParentController(IPetParentService petParentService)
+    public PetParentController(IUserService petParentService)
     {
         _petParentService = petParentService;
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreatePetParent([FromBody] PetParentRequest petParentRequest)
+    public async Task<IActionResult> CreatePetParent([FromBody] UserRequest petParentRequest)
     {
-        var response = await _petParentService.CreatePetParent(petParentRequest);
+        var response = await _petParentService.CreateUser(petParentRequest);
         return Ok(response);
     }
 
     [HttpGet]
     public async Task<IActionResult> GetAllPetParents()
     {
-        var response = await _petParentService.GetAllPetParents();
+        var response = await _petParentService.GetAllUsers();
         return Ok(response);
     }
 
     [HttpGet("/byId/{parentId}")]
     public async Task<IActionResult> GetPetParentById(int parentId)
     {
-        var response = await _petParentService.GetPetParentById(parentId);
+        var response = await _petParentService.GetUserById(parentId);
         return Ok(response);
     }
 
     [HttpPut("/{parentId}")]
-    public async Task<IActionResult> UpdatePetParent(int parentId, [FromBody] PetParentRequest petParentRequest)
+    public async Task<IActionResult> UpdatePetParent(int parentId, [FromBody] UserRequest petParentRequest)
     {
-        var response = await _petParentService.UpdatePetParent(parentId, petParentRequest);
+        var response = await _petParentService.UpdateUser(parentId, petParentRequest);
         return Ok(response);
     }
 
     [HttpDelete("/{parentId}")]
     public async Task<IActionResult> DeletePetParent(int parentId)
     {
-        var response = await _petParentService.DeletePetParent(parentId);
+        var response = await _petParentService.DeleteUser(parentId);
         return Ok(response);
     }
 }

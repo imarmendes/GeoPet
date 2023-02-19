@@ -9,9 +9,9 @@ public class Mapper : Profile
 {
     public Mapper()
     {
-        CreateMap<PetRequest, PetDto>();
-        CreateMap<PetParentRequest, PetParentDto>();
-        CreateMap<PetDto, PetResponse>();
-        CreateMap<PetParentDto, PetParentResponse>();
+        CreateMap<PetRequest, Pet>();
+        CreateMap<UserRequest, User>();
+        CreateMap<Pet, PetResponse>();
+        CreateMap<User, UserResponse>();
     }
 }

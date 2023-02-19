@@ -6,64 +6,69 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GeoPet.Migrations
 {
     /// <inheritdoc />
-    public partial class inicial : Migration
+    public partial class initial_migration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "PetParentDtos",
+                name: "User",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    CEP = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PetParentDtos", x => x.Id);
+                    table.PrimaryKey("PK_User", x => x.UserId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "PetDtos",
+                name: "Pet",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PetId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DogBreed = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Age = table.Column<int>(type: "int", nullable: false),
-                    PetPerantId = table.Column<int>(type: "int", nullable: false)
+                    Size = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Breed = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PetDtos", x => x.Id);
+                    table.PrimaryKey("PK_Pet", x => x.PetId);
                     table.ForeignKey(
-                        name: "FK_PetDtos_PetParentDtos_PetPerantId",
-                        column: x => x.PetPerantId,
-                        principalTable: "PetParentDtos",
-                        principalColumn: "Id",
+                        name: "FK_Pet_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_PetDtos_PetPerantId",
-                table: "PetDtos",
-                column: "PetPerantId");
+                name: "IX_Pet_UserId",
+                table: "Pet",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_User_Email",
+                table: "User",
+                column: "Email",
+                unique: true);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "PetDtos");
+                name: "Pet");
 
             migrationBuilder.DropTable(
-                name: "PetParentDtos");
+                name: "User");
         }
     }
 }

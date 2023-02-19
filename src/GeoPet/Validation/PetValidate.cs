@@ -3,7 +3,7 @@ using GeoPet.DataContract.Request;
 
 namespace GeoPet.Validation;
 
-public class PetValidate  : AbstractValidator<PetRequest>
+public class PetValidate : AbstractValidator<PetRequest>
 {
     public PetValidate()
     {
@@ -13,7 +13,7 @@ public class PetValidate  : AbstractValidator<PetRequest>
         RuleFor(p => p.Age)
             .NotEmpty()
             .WithMessage("Idade do pet é obrigatório.");
-        RuleFor(p => p.DogBreed)
+        RuleFor(p => p.Breed)
             .NotEmpty()
             .WithMessage("Raça do pet é obrigatório.");
     }

@@ -13,12 +13,13 @@ public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : 
         _dbContext = dbContext;
         _dbSet = dbContext.Set<TEntity>();
     }
-    
+
     public async Task<TEntity> Add(TEntity entity)
     {
         try
         {
-            _dbSet.Add(entity);
+            await _dbSet.AddAsync(entity);
+            await _dbContext.SaveChangesAsync();
             return entity;
         }
         catch (Exception e)
@@ -28,11 +29,11 @@ public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : 
         }
     }
 
-   public async Task<List<TEntity>> GetAll()
+    public async Task<List<TEntity>> GetAll()
     {
         try
         {
-            return _dbSet.ToList();
+            return await _dbSet.AsNoTracking().ToListAsync();
         }
         catch (Exception e)
         {
@@ -40,25 +41,28 @@ public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : 
             throw new Exception("Erro ao tentar buscar todos.");
         }
     }
-   
-   public async Task<TEntity> GetById(int id)
-   {
-       try
-       {
-           return _dbSet.Find(id);
-       }
-       catch (Exception e)
-       {
-           Console.WriteLine(e);
-           throw new Exception("Erro ao tentar buscar por id.");
-       }
-   }
+
+    public async Task<TEntity> GetById(int id)
+    {
+        try
+        {
+            var entity = await _dbSet.FindAsync(id);
+
+            return entity;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw new Exception("Erro ao tentar buscar por id.");
+        }
+    }
 
     public async Task<TEntity> Update(TEntity entity)
     {
         try
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
+            await _dbContext.SaveChangesAsync();
             return entity;
         }
         catch (Exception e)
@@ -73,6 +77,7 @@ public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : 
         try
         {
             _dbSet.Remove(entity);
+            await _dbContext.SaveChangesAsync();
             return entity;
         }
         catch (Exception e)

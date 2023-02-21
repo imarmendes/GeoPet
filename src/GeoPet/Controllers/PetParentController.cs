@@ -36,11 +36,7 @@ public class PetParentController : ControllerBase
         return Ok(response);
     }
 
-<<<<<<< Updated upstream
     [HttpPut("{parentId}")]
-=======
-    [HttpPut("/{parentId}")]
->>>>>>> Stashed changes
     public async Task<IActionResult> UpdatePetParent(int parentId, [FromBody] UserRequest petParentRequest)
     {
         var response = await _petParentService.UpdateUser(parentId, petParentRequest);

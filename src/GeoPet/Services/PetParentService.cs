@@ -18,12 +18,8 @@ public class PetParentService : IUserService
     private readonly ISecurityServices _securityServices;
     private readonly ICepService _cepService;
 
-<<<<<<< Updated upstream
 
     public PetParentService(IUserRepository petParentRepository, IMapper mapper, ISecurityServices securityServices, ICepService cepService)
-=======
-    public PetParentService(IUserRepository petParentRepository, IMapper mapper, ISecurityServices securityServices)
->>>>>>> Stashed changes
     {
         _petParentRepository = petParentRepository;
         _mapper = mapper;
@@ -31,21 +27,12 @@ public class PetParentService : IUserService
         _cepService = cepService;
     }
 
-<<<<<<< Updated upstream
     public async Task<Response> CreateUser(UserRequest userRequest)
     {
         try
         {
             var petParentValidation = new PetParentValidate(_cepService);
             var petIsValid = petParentValidation.Validate(userRequest);
-=======
-    public async Task<Response> CreateUser(UserRequest petParentRequest)
-    {
-        try
-        {
-            var petParentValidation = new PetParentValidate();
-            var petIsValid = petParentValidation.Validate(petParentRequest);
->>>>>>> Stashed changes
 
             var errors = GetValidations.GetErrors(petIsValid);
 
@@ -61,11 +48,7 @@ public class PetParentService : IUserService
 
             userRequest.Password = passwordEncripted.Data;
 
-<<<<<<< Updated upstream
             var petParent = _mapper.Map<User>(userRequest);
-=======
-            var petParent = _mapper.Map<User>(petParentRequest);
->>>>>>> Stashed changes
 
             var petParentAdd = _petParentRepository.Add(petParent);
 

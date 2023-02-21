@@ -1,4 +1,5 @@
 using GeoPet.Interfaces.Repository;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace GeoPet.Repository;
@@ -21,6 +22,11 @@ public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : 
             await _dbSet.AddAsync(entity);
             await _dbContext.SaveChangesAsync();
             return entity;
+        }
+        catch (DbUpdateException e)
+        when (e.InnerException is SqlException sqlEx && sqlEx.Number == 2601)
+        {
+            throw new Exception("Email já cadastrado");
         }
         catch (Exception e)
         {

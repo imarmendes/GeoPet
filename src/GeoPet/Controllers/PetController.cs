@@ -6,7 +6,7 @@ namespace GeoPet.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class PetController  : ControllerBase
+public class PetController : ControllerBase
 {
     private readonly IPetService _petService;
 
@@ -29,21 +29,21 @@ public class PetController  : ControllerBase
         return Ok(response);
     }
 
-    [HttpGet("/byId/{petId:int}")]
+    [HttpGet("{petId:int}")]
     public async Task<IActionResult> GetPetById(int petId)
     {
         var response = await _petService.GetPetById(petId);
         return Ok(response);
     }
 
-    [HttpPut("/{petId:int}")]
+    [HttpPut("{petId:int}")]
     public async Task<IActionResult> UpdatePet(int petId, [FromBody] PetRequest petRequest)
     {
         var response = await _petService.UpdatePet(petId, petRequest);
         return Ok(response);
     }
 
-    [HttpDelete("/{petId:int}")]
+    [HttpDelete("{petId:int}")]
     public async Task<IActionResult> DeletePet(int petId)
     {
         var response = await _petService.DeletePet(petId);

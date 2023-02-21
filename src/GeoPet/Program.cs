@@ -23,6 +23,9 @@ builder.Services.AddScoped<IUserService, PetParentService>();
 builder.Services.AddScoped<IPetService, PetService>();
 builder.Services.AddScoped<ISecurityServices, SecurityServices>();
 
+
+builder.Services.AddHttpClient<ICepService, CepService>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

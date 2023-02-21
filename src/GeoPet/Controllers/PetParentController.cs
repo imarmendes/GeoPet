@@ -29,21 +29,25 @@ public class PetParentController : ControllerBase
         return Ok(response);
     }
 
-    [HttpGet("/byId/{parentId}")]
+    [HttpGet("{parentId}")]
     public async Task<IActionResult> GetPetParentById(int parentId)
     {
         var response = await _petParentService.GetUserById(parentId);
         return Ok(response);
     }
 
+<<<<<<< Updated upstream
+    [HttpPut("{parentId}")]
+=======
     [HttpPut("/{parentId}")]
+>>>>>>> Stashed changes
     public async Task<IActionResult> UpdatePetParent(int parentId, [FromBody] UserRequest petParentRequest)
     {
         var response = await _petParentService.UpdateUser(parentId, petParentRequest);
         return Ok(response);
     }
 
-    [HttpDelete("/{parentId}")]
+    [HttpDelete("{parentId}")]
     public async Task<IActionResult> DeletePetParent(int parentId)
     {
         var response = await _petParentService.DeleteUser(parentId);

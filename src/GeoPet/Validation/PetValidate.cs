@@ -5,6 +5,8 @@ namespace GeoPet.Validation;
 
 public class PetValidate : AbstractValidator<PetRequest>
 {
+    private List<string> Sizes { get; set; } = new List<string>() { "pequeno", "médio", "grande" };
+
     public PetValidate()
     {
         RuleFor(p => p.Name)
@@ -13,6 +15,14 @@ public class PetValidate : AbstractValidator<PetRequest>
         RuleFor(p => p.Age)
             .NotEmpty()
             .WithMessage("Idade do pet é obrigatório.");
+<<<<<<< Updated upstream
+        RuleFor(p => p.Size)
+            .NotEmpty()
+            .WithMessage("Porte é obrigatório")
+            .Must(size => Sizes.Contains(size))
+            .WithMessage("Tamanho do porte é inválido");
+=======
+>>>>>>> Stashed changes
         RuleFor(p => p.Breed)
             .NotEmpty()
             .WithMessage("Raça do pet é obrigatório.");

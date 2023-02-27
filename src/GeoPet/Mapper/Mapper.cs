@@ -10,8 +10,8 @@ public class Mapper : Profile
     public Mapper()
     {
         CreateMap<PetRequest, Pet>();
-        CreateMap<UserRequest, User>();
+        CreateMap<OwnerRequest, Owner>();
         CreateMap<Pet, PetResponse>();
-        CreateMap<User, UserResponse>();
+        CreateMap<Owner, UserResponse>();
     }
 }

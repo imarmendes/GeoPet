@@ -5,11 +5,11 @@ using GeoPet.Validation.Base;
 
 namespace GeoPet.Validation;
 
-public class PetParentValidate : AbstractValidator<UserRequest>
+public class OwnerValidate : AbstractValidator<OwnerRequest>
 {
     private readonly ICepService _cepService;
 
-    public PetParentValidate(ICepService cepService)
+    public OwnerValidate(ICepService cepService)
     {
         _cepService = cepService;
 
@@ -38,13 +38,6 @@ public class PetParentValidate : AbstractValidator<UserRequest>
             .WithMessage("Formato do CEP inválido")
             .Must(cep => ValidateCep(cep).Result)
             .WithMessage("CEP não existe");
-
-
-        // RuleFor(p => p.ConfirmPassword)
-        //     .NotEmpty()
-        //     .WithMessage("O senha é obrigatório.")
-        //     .MinimumLength(6)
-        //     .WithMessage("A senha deve ter no mínimo 6 caracteres.");
 
     }
 

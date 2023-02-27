@@ -54,7 +54,7 @@ public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : 
         {
             var entity = await _dbSet.FindAsync(id);
 
-            return entity;
+            return entity!;
         }
         catch (Exception e)
         {
@@ -63,12 +63,47 @@ public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : 
         }
     }
 
-    public async Task<TEntity> Update(TEntity entity)
+    public async Task<TEntity> GetById(Guid id)
     {
         try
         {
-            _dbContext.Entry(entity).State = EntityState.Modified;
-            await _dbContext.SaveChangesAsync();
+            var entity = await _dbSet.FindAsync(id);
+
+            return entity!;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw new Exception("Erro ao tentar buscar por id.");
+        }
+    }
+
+    public async Task<TEntity> Update(int id, TEntity entity)
+    {
+        try
+        {
+            var entityToUpdate = await GetById(id);
+
+            _dbContext.Entry(entityToUpdate).CurrentValues.SetValues(entity);
+            _dbContext.SaveChanges();
+
+            return entity;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw new Exception("Erro ao tentar atualizar.");
+        }
+    }
+
+    public async Task<TEntity> Update(Guid id, TEntity entity)
+    {
+        try
+        {
+            var entityToUpdate = await GetById(id);
+
+            _dbContext.Entry(entityToUpdate).CurrentValues.SetValues(entity);
+            _dbContext.SaveChanges();
             return entity;
         }
         catch (Exception e)

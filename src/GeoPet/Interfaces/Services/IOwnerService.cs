@@ -3,11 +3,11 @@ using GeoPet.Validation.Base;
 
 namespace GeoPet.Interfaces.Services;
 
-public interface IUserService
+public interface IOwnerService
 {
-    Task<Response> CreateUser(UserRequest userRequest);
+    Task<Response> CreateUser(OwnerRequest ownerRequest);
     Task<Response> GetAllUsers();
     Task<Response> GetUserById(int id);
-    Task<Response> UpdateUser(int id, UserRequest userRequest);
+    Task<Response> UpdateUser(int id, OwnerRequest ownerRequest);
     Task<Response> DeleteUser(int id);
 }

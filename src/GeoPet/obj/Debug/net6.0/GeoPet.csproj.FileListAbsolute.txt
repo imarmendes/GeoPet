@@ -174,3 +174,4 @@
 /home/leo/Dev/C#/GeoPet/GeoPet/src/GeoPet/obj/Debug/net6.0/ref/GeoPet.dll
 /home/leo/Dev/C#/GeoPet/GeoPet/src/GeoPet/obj/Debug/net6.0/GeoPet.pdb
 /home/leo/Dev/C#/GeoPet/GeoPet/src/GeoPet/obj/Debug/net6.0/GeoPet.genruntimeconfig.cache
+/home/leo/Dev/C#/GeoPet/GeoPet/src/GeoPet/bin/Debug/net6.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll

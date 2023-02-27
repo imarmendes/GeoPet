@@ -6,5 +6,5 @@ public class PetRequest
     public int Age { get; set; }
     public string Size { get; set; } = null!;
     public string Breed { get; set; } = null!;
-    public int UserId { get; set; }
+    public int OwnerId { get; set; }
 }

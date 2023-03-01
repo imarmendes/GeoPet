@@ -8,11 +8,11 @@ namespace GeoPet.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
-public class OnwerController : ControllerBase
+public class OwnerController : ControllerBase
 {
     private readonly IOwnerService _ownerService;
 
-    public OnwerController(IOwnerService ownerService)
+    public OwnerController(IOwnerService ownerService)
     {
         _ownerService = ownerService;
     }

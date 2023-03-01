@@ -12,6 +12,6 @@ public class Mapper : Profile
         CreateMap<PetRequest, Pet>();
         CreateMap<OwnerRequest, Owner>();
         CreateMap<Pet, PetResponse>();
-        CreateMap<Owner, UserResponse>();
+        CreateMap<Owner, OwnerResponse>();
     }
 }

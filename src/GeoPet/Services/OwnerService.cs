@@ -57,9 +57,9 @@ public class OwnerService : IOwnerService
 
             var petParentAdd = _petParentRepository.Add(petParent);
 
-            var petParentResponse = _mapper.Map<UserResponse>(petParentAdd.Result);
+            var petParentResponse = _mapper.Map<OwnerResponse>(petParentAdd.Result);
 
-            var response = new Response<UserResponse>(petParentResponse);
+            var response = new Response<OwnerResponse>(petParentResponse);
             return response;
         }
         catch (Exception e)
@@ -73,8 +73,8 @@ public class OwnerService : IOwnerService
         try
         {
             var petParents = await _petParentRepository.GetAll();
-            var petParentResponseList = _mapper.Map<List<DataContract.Model.Owner>, List<UserResponse>>(petParents);
-            var response = new Response<List<UserResponse>>(petParentResponseList);
+            var petParentResponseList = _mapper.Map<List<DataContract.Model.Owner>, List<OwnerResponse>>(petParents);
+            var response = new Response<List<OwnerResponse>>(petParentResponseList);
             return response;
         }
         catch (Exception e)
@@ -90,8 +90,8 @@ public class OwnerService : IOwnerService
             if (ValidateAuthorization(id)) return Response.Unprocessable(Report.Create("Sem permissão"));
 
             var petParent = await _petParentRepository.GetById(id);
-            var petParentResponse = _mapper.Map<UserResponse>(petParent);
-            var response = new Response<UserResponse>(petParentResponse);
+            var petParentResponse = _mapper.Map<OwnerResponse>(petParent);
+            var response = new Response<OwnerResponse>(petParentResponse);
             return response;
         }
         catch (Exception e)
@@ -122,9 +122,9 @@ public class OwnerService : IOwnerService
 
             var petParentUpdated = await _petParentRepository.Update(id, petParent);
 
-            var petParentResponse = _mapper.Map<UserResponse>(petParentUpdated);
+            var petParentResponse = _mapper.Map<OwnerResponse>(petParentUpdated);
 
-            var response = new Response<UserResponse>(petParentResponse);
+            var response = new Response<OwnerResponse>(petParentResponse);
             return response;
         }
         catch (Exception e)
@@ -142,9 +142,9 @@ public class OwnerService : IOwnerService
             var petParentToDelete = _petParentRepository.GetById(id);
 
             var petParentDeleted = await _petParentRepository.Remove(petParentToDelete.Result);
-            var petParentResponse = _mapper.Map<UserResponse>(petParentDeleted);
+            var petParentResponse = _mapper.Map<OwnerResponse>(petParentDeleted);
 
-            var response = new Response<UserResponse>(petParentResponse);
+            var response = new Response<OwnerResponse>(petParentResponse);
             return response;
         }
         catch (Exception e)

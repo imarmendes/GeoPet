@@ -2,7 +2,7 @@ using GeoPet.DataContract.Model;
 
 namespace GeoPet.DataContract.Response;
 
-public class UserResponse
+public class OwnerResponse
 {
     public int Id { get; set; }
     public string Name { get; set; } = null!;

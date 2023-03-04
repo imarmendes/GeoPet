@@ -31,6 +31,7 @@ builder.Services.AddScoped<IPetService, PetService>();
 builder.Services.AddScoped<ISecurityServices, SecurityServices>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddScoped<IQRCodeService, QRCodeService>();
 
 
 builder.Services.AddHttpClient<ICepService, CepService>();

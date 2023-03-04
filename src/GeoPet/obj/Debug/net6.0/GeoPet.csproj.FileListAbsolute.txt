@@ -175,3 +175,13 @@
 /home/leo/Dev/C#/GeoPet/GeoPet/src/GeoPet/obj/Debug/net6.0/GeoPet.pdb
 /home/leo/Dev/C#/GeoPet/GeoPet/src/GeoPet/obj/Debug/net6.0/GeoPet.genruntimeconfig.cache
 /home/leo/Dev/C#/GeoPet/GeoPet/src/GeoPet/bin/Debug/net6.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/home/leo/Dev/C#/GeoPet/GeoPet/src/GeoPet/bin/Debug/net6.0/SkiaSharp.dll
+/home/leo/Dev/C#/GeoPet/GeoPet/src/GeoPet/bin/Debug/net6.0/SkiaSharp.QrCode.dll
+/home/leo/Dev/C#/GeoPet/GeoPet/src/GeoPet/bin/Debug/net6.0/runtimes/osx/native/libSkiaSharp.dylib
+/home/leo/Dev/C#/GeoPet/GeoPet/src/GeoPet/bin/Debug/net6.0/runtimes/win-arm64/native/libSkiaSharp.dll
+/home/leo/Dev/C#/GeoPet/GeoPet/src/GeoPet/bin/Debug/net6.0/runtimes/win-x64/native/libSkiaSharp.dll
+/home/leo/Dev/C#/GeoPet/GeoPet/src/GeoPet/bin/Debug/net6.0/runtimes/win-x86/native/libSkiaSharp.dll
+/home/leo/Dev/C#/GeoPet/GeoPet/src/GeoPet/bin/Debug/net6.0/runtimes/linux-arm/native/libSkiaSharp.so
+/home/leo/Dev/C#/GeoPet/GeoPet/src/GeoPet/bin/Debug/net6.0/runtimes/linux-arm64/native/libSkiaSharp.so
+/home/leo/Dev/C#/GeoPet/GeoPet/src/GeoPet/bin/Debug/net6.0/runtimes/linux-musl-x64/native/libSkiaSharp.so
+/home/leo/Dev/C#/GeoPet/GeoPet/src/GeoPet/bin/Debug/net6.0/runtimes/linux-x64/native/libSkiaSharp.so

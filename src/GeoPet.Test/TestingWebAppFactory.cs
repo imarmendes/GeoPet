@@ -35,6 +35,8 @@ public class TestingWebAppFactory<TProgram> : WebApplicationFactory<Program> whe
               services.AddScoped<ISecurityServices, SecurityServices>();
               services.AddScoped<IAuthenticationService, AuthenticationService>();
               services.AddScoped<IJwtService, JwtService>();
+              services.AddScoped<IQRCodeService, QRCodeService>();
+              services.AddScoped<INominatinService, NominatinService>();
 
               var sp = services.BuildServiceProvider();
               using var scope = sp.CreateScope();

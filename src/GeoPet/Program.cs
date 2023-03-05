@@ -32,6 +32,7 @@ builder.Services.AddScoped<ISecurityServices, SecurityServices>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IQRCodeService, QRCodeService>();
+builder.Services.AddScoped<INominatinService, NominatinService>();
 
 
 builder.Services.AddHttpClient<ICepService, CepService>();

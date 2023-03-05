@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using GeoPet.Validation.Base;
 using GeoPet.DataContract.Response;
-using System.Drawing;
 
 namespace GeoPet.Controllers;
 

@@ -6,29 +6,26 @@ using GeoPet.Validation.Base;
 
 namespace GeoPet.Service;
 
-public class CepService : ICepService
+public class NominatinService : INominatinService
 {
     private readonly HttpClient _client;
-    private const string _baseUrl = "https://viacep.com.br/ws/";
+    private const string _baseUrl = "https://nominatim.openstreetmap.org";
 
-    public CepService(HttpClient client)
+    public NominatinService(HttpClient client)
     {
         _client = client;
         _client.BaseAddress = new Uri(_baseUrl);
     }
 
-    public async Task<Response> GetCep(string cep)
+    public async Task<Response> Reverse(string lat, string lon)
     {
         _client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("StudentProjectGeoPet", "1.0"));
-        var response = await _client.GetAsync($"{cep}/json/");
+        var response = await _client.GetAsync($"/reverse?format=jsonv2&zoom=17&lat={lat}&lon={lon}");
 
-        if (!response.IsSuccessStatusCode) return Response.Unprocessable(Report.Create("Formato do CEP inválido"));
+        if (!response.IsSuccessStatusCode) return Response.Unprocessable(Report.Create("Erro ao Localizar"));
 
         var result = await response.Content.ReadFromJsonAsync<object>();
 
-        if (result!.ToString()!.Contains("erro")) return Response.Unprocessable(Report.Create("CEP não existe"));
-
         return new Response<object>(result!);
     }
-
 }

@@ -54,7 +54,7 @@ alem de permitir uma rastreio do pet via coodenadas de GPS.
 - Configure MSQServer with docker
 
   ```bash
-  docker-compose up && dotnet ef migrations Setup_Migration && dotnet ef update
+  docker-compose up -d && dotnet ef migrations add Setup_Migration --project GeoPet && dotnet ef database update --project GeoPet
   
   ```
 

@@ -53,7 +53,7 @@ public class OwnerService : IOwnerService
 
             userRequest.Password = passwordEncripted.Data!;
 
-            var petParent = _mapper.Map<DataContract.Model.Owner>(userRequest);
+            var petParent = _mapper.Map<Owner>(userRequest);
 
             var petParentAdd = _petParentRepository.Add(petParent);
 

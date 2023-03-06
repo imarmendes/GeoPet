@@ -44,14 +44,6 @@ public class LostPetTestSucces : IClassFixture<TestingWebAppFactory<Program>>
     [MemberData(nameof(PetGuid))]
     public async Task TestGetByIdEndpointSuccess(Guid id)
     {
-        using (var scope = _factory.Services.CreateScope())
-        {
-            var scopedServices = scope.ServiceProvider;
-            var db = scopedServices.GetRequiredService<GeoPetContext>();
-
-            Helpers.ResetDbForTests(db);
-        }
-
         _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
 
         var response = await _client.GetAsync($"/api/LostPet/{id}");

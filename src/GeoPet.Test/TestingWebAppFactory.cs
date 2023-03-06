@@ -43,6 +43,9 @@ public class TestingWebAppFactory<TProgram> : WebApplicationFactory<Program> whe
               using var db = scope.ServiceProvider.GetRequiredService<GeoPetContext>();
 
               db.Database.EnsureCreated();
+              db.Database.EnsureDeleted();
+              db.Database.EnsureCreated();
+
           });
 
     }

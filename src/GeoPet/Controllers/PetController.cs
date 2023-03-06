@@ -1,12 +1,15 @@
 using GeoPet.DataContract.Request;
 using GeoPet.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace GeoPet.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class PetController  : ControllerBase
+[Authorize]
+public class PetController : ControllerBase
 {
     private readonly IPetService _petService;
 
@@ -29,22 +32,22 @@ public class PetController  : ControllerBase
         return Ok(response);
     }
 
-    [HttpGet("/byId/{petId:int}")]
-    public async Task<IActionResult> GetPetById(int petId)
+    [HttpGet("{petId}")]
+    public async Task<IActionResult> GetPetById(Guid petId)
     {
         var response = await _petService.GetPetById(petId);
         return Ok(response);
     }
 
-    [HttpPut("/{petId:int}")]
-    public async Task<IActionResult> UpdatePet(int petId, [FromBody] PetRequest petRequest)
+    [HttpPut("{petId}")]
+    public async Task<IActionResult> UpdatePet(Guid petId, [FromBody] PetRequest petRequest)
     {
         var response = await _petService.UpdatePet(petId, petRequest);
         return Ok(response);
     }
 
-    [HttpDelete("/{petId:int}")]
-    public async Task<IActionResult> DeletePet(int petId)
+    [HttpDelete("{petId}")]
+    public async Task<IActionResult> DeletePet(Guid petId)
     {
         var response = await _petService.DeletePet(petId);
         return Ok(response);

@@ -1,4 +1,5 @@
 using GeoPet.Interfaces.Repository;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace GeoPet.Repository;
@@ -13,13 +14,19 @@ public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : 
         _dbContext = dbContext;
         _dbSet = dbContext.Set<TEntity>();
     }
-    
+
     public async Task<TEntity> Add(TEntity entity)
     {
         try
         {
-            _dbSet.Add(entity);
+            await _dbSet.AddAsync(entity);
+            await _dbContext.SaveChangesAsync();
             return entity;
+        }
+        catch (DbUpdateException e)
+        when (e.InnerException is SqlException sqlEx && sqlEx.Number == 2601)
+        {
+            throw new Exception("Email já cadastrado");
         }
         catch (Exception e)
         {
@@ -28,11 +35,11 @@ public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : 
         }
     }
 
-   public async Task<List<TEntity>> GetAll()
+    public async Task<List<TEntity>> GetAll()
     {
         try
         {
-            return _dbSet.ToList();
+            return await _dbSet.AsNoTracking().ToListAsync();
         }
         catch (Exception e)
         {
@@ -40,25 +47,63 @@ public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : 
             throw new Exception("Erro ao tentar buscar todos.");
         }
     }
-   
-   public async Task<TEntity> GetById(int id)
-   {
-       try
-       {
-           return _dbSet.Find(id);
-       }
-       catch (Exception e)
-       {
-           Console.WriteLine(e);
-           throw new Exception("Erro ao tentar buscar por id.");
-       }
-   }
 
-    public async Task<TEntity> Update(TEntity entity)
+    public async Task<TEntity> GetById(int id)
     {
         try
         {
-            _dbContext.Entry(entity).State = EntityState.Modified;
+            var entity = await _dbSet.FindAsync(id);
+
+            return entity!;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw new Exception("Erro ao tentar buscar por id.");
+        }
+    }
+
+    public async Task<TEntity> GetById(Guid id)
+    {
+        try
+        {
+            var entity = await _dbSet.FindAsync(id);
+
+            return entity!;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw new Exception("Erro ao tentar buscar por id.");
+        }
+    }
+
+    public async Task<TEntity> Update(int id, TEntity entity)
+    {
+        try
+        {
+            var entityToUpdate = await GetById(id);
+
+            _dbContext.Entry(entityToUpdate).CurrentValues.SetValues(entity);
+            _dbContext.SaveChanges();
+
+            return entity;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw new Exception("Erro ao tentar atualizar.");
+        }
+    }
+
+    public async Task<TEntity> Update(Guid id, TEntity entity)
+    {
+        try
+        {
+            var entityToUpdate = await GetById(id);
+
+            _dbContext.Entry(entityToUpdate).CurrentValues.SetValues(entity);
+            _dbContext.SaveChanges();
             return entity;
         }
         catch (Exception e)
@@ -73,6 +118,7 @@ public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : 
         try
         {
             _dbSet.Remove(entity);
+            await _dbContext.SaveChangesAsync();
             return entity;
         }
         catch (Exception e)

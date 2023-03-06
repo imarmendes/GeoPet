@@ -22,7 +22,7 @@ namespace GeoPet.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("GeoPet.DataContract.Model.PetDto", b =>
+            modelBuilder.Entity("GeoPet.DataContract.Model.Owner", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -30,41 +30,13 @@ namespace GeoPet.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
-
-                    b.Property<string>("DogBreed")
+                    b.Property<string>("CEP")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PetPerantId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PetPerantId");
-
-                    b.ToTable("PetDtos");
-                });
-
-            modelBuilder.Entity("GeoPet.DataContract.Model.PetParentDto", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -74,28 +46,114 @@ namespace GeoPet.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                    b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.ToTable("Owner");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CEP = "01001000",
+                            Email = "admin@email.com",
+                            Name = "Admin",
+                            Password = "$2b$10$i/dgw2inj3yD4cH0cbvBJ.i6cR/uZqYTua3Ao7wmsk/mytI1opAbS"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CEP = "01001000",
+                            Email = "email@email.com",
+                            Name = "Pessoa1",
+                            Password = "$2b$10$i/dgw2inj3yD4cH0cbvBJ.i6cR/uZqYTua3Ao7wmsk/mytI1opAbS"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CEP = "01001000",
+                            Email = "email2@email.com",
+                            Name = "Pessoa2",
+                            Password = "$2b$10$i/dgw2inj3yD4cH0cbvBJ.i6cR/uZqYTua3Ao7wmsk/mytI1opAbS"
+                        });
+                });
+
+            modelBuilder.Entity("GeoPet.DataContract.Model.Pet", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Breed")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("OwnerId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Size")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("PetParentDtos");
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("Pet");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("08148b33-d29c-41b8-b797-ec903d9ede71"),
+                            Age = 6,
+                            Breed = "Pug",
+                            Name = "Pet2",
+                            OwnerId = 2,
+                            Size = "pequeno"
+                        },
+                        new
+                        {
+                            Id = new Guid("e646f236-e19d-4c3a-99b9-1fd09e21eb4f"),
+                            Age = 6,
+                            Breed = "Pug",
+                            Name = "Pet3",
+                            OwnerId = 2,
+                            Size = "pequeno"
+                        },
+                        new
+                        {
+                            Id = new Guid("d386421c-b9dd-46f0-8ec1-5d788c1a33a6"),
+                            Age = 5,
+                            Breed = "Pastor-alemão",
+                            Name = "Pet1",
+                            OwnerId = 3,
+                            Size = "grande"
+                        });
                 });
 
-            modelBuilder.Entity("GeoPet.DataContract.Model.PetDto", b =>
+            modelBuilder.Entity("GeoPet.DataContract.Model.Pet", b =>
                 {
-                    b.HasOne("GeoPet.DataContract.Model.PetParentDto", "PetPerant")
-                        .WithMany("PetDtos")
-                        .HasForeignKey("PetPerantId")
+                    b.HasOne("GeoPet.DataContract.Model.Owner", "Owner")
+                        .WithMany("Pets")
+                        .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("PetPerant");
+                    b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("GeoPet.DataContract.Model.PetParentDto", b =>
+            modelBuilder.Entity("GeoPet.DataContract.Model.Owner", b =>
                 {
-                    b.Navigation("PetDtos");
+                    b.Navigation("Pets");
                 });
 #pragma warning restore 612, 618
         }

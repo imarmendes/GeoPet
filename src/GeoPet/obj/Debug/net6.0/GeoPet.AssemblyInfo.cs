@@ -17,6 +17,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyProductAttribute("GeoPet")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GeoPet")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("GeoPet.Test")]
 
 // Gerado pela classe WriteCodeFragment do MSBuild.
 
